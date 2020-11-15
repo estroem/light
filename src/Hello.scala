@@ -1,41 +1,15 @@
-import java.awt.image.{BufferedImage, ColorModel, DataBuffer, Raster}
+import java.awt.image.{BufferedImage, ColorModel}
 
 object Hello {
+  val w = 800
+  val h = 500
+
   def main(args: Array[String]) = {
-/*
-    val w: Int = 500
-    val h: Int = 500
-    val data = new Array[Int](w * h)
+    val data = runtest(w, h)
+    render(w, h, data)
+  }
 
-    val i = 100
-    val j = 100
-
-    data(i * w + j) = 0x55555555
-    data((i + 2) * w + j) = 0x55555555
-    data((i + 3) * w + j) = 0x55555555
-    data((i + 4) * w + j) = 0x55555555
-    data((i + 5) * w + j) = 0x55555555
-    data((i + 6) * w + j) = 0x55555555
-
-    // 4 -> 3; 3 -> 2; 2 -> 1; 1 -> 4
-
-    /*
-    for(y <- 0 until h) {
-      val off = multiply(y, w)
-
-      for(x <- 0 until w) {
-        data(sum(x, off)) = mod(multiply(x, y), Int.MaxValue)
-      }
-    }*/
-
-    val colorModel = ColorModel.getRGBdefault
-    val raster = colorModel.createCompatibleWritableRaster(w, h)
-    raster.setDataElements(0, 0, w, h, data)
-    image.setData(raster)
-*/
-
-    val w = 600
-    val h = 500
+  def runtest(w: Int, h: Int): Array[Byte] = {
     val data = new Array[Byte](w * h)
 
     val x = 490
@@ -51,10 +25,10 @@ object Hello {
     data((x+1) * w + y + 3) = 127
     data((x+1) * w + y + 4) = 127
 
-    draw(w, h, data)
+    data
   }
 
-  def draw(w: Int, h: Int, data: Array[Byte]): Unit = {
+  def render(w: Int, h: Int, data: Array[Byte]): Unit = {
     val convertedArray = convert(w, h, data)
     val colorModel = ColorModel.getRGBdefault
     val raster = colorModel.createCompatibleWritableRaster(w, h)
@@ -80,11 +54,4 @@ object Hello {
 
     array
   }
-
-  def multiply(m: Int, n: Int): Int = m * n
-
-  def sum(m: Int, n: Int): Int = m + n
-
-  def mod(m: Int, n: Int): Int = m % n
-
 }
