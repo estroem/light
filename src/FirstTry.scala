@@ -2,7 +2,7 @@ import math.{Ray, Vector3D}
 import shapes.Shape
 
 object FirstTry {
-  val z: Int = -50
+  val z: Int = 50
 
   def render(w: Int, h: Int, objects: Vector[Shape]): Array[Byte] = {
     val data = new Array[Byte](w * h)

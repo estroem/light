@@ -10,7 +10,9 @@ object Hello {
   def main(args: Array[String]) = {
     //val data = runtest(w, h)
 
-    val shapes: Vector[Shape] = Vector(new Sphere(new Vector3D(0, 0, 0), 20))
+    val s1 = new Sphere(new Vector3D(50, 50, -20), 20)
+    val s2 = new Sphere(new Vector3D(80, 100, 0), 30)
+    val shapes: Vector[Shape] = Vector(s1, s2)
 
     val data = FirstTry.render(w, h, shapes)
 
