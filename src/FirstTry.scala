@@ -12,8 +12,11 @@ object FirstTry {
         val pos = camera.pos + new Vector3D(x, y, 0) - adjuster
         val ray = new Ray(pos, camera.direction)
 
-        if(objects.map(o => o.distanceTo(ray)).exists(op => op.nonEmpty)) {
-          data(y * w + x) = 127
+        val objsInSight = objects.filter(o => o.distanceTo(ray).nonEmpty)
+        val obj = if(objsInSight.nonEmpty) Option.apply(objsInSight.minBy(o => o.distanceTo(ray).get)) else Option.empty
+
+        if(obj.nonEmpty) {
+          data(y * w + x) = (obj.get.brightness * 127).asInstanceOf[Byte]
         }
       }
     }

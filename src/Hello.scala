@@ -8,8 +8,8 @@ object Hello {
   final val H = 500
 
   def main(args: Array[String]) = {
-    val s1 = new Sphere(new Vector3D(50, 50, -20), 20)
-    val s2 = new Sphere(new Vector3D(0, 0, 0), 30)
+    val s1 = new Sphere(new Vector3D(50, 50, -20), 20, 1)
+    val s2 = new Sphere(new Vector3D(0, 0, 0), 30, 0.5)
 
     val shapes: Vector[Shape] = Vector(s1, s2)
     val camera: Camera = new Camera(new Vector3D(0, 0, 0), new Vector3D(0, 0, -1))
