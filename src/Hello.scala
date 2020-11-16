@@ -1,12 +1,20 @@
 import java.awt.image.{BufferedImage, ColorModel}
 
+import math.Vector3D
+import shapes.{Shape, Sphere}
+
 object Hello {
   val w = 800
   val h = 500
 
   def main(args: Array[String]) = {
-    val data = runtest(w, h)
-    render(w, h, data)
+    //val data = runtest(w, h)
+
+    val shapes: Vector[Shape] = Vector(new Sphere(new Vector3D(0, 0, 0), 20))
+
+    val data = FirstTry.render(w, h, shapes)
+
+    draw(w, h, data)
   }
 
   def runtest(w: Int, h: Int): Array[Byte] = {
@@ -28,7 +36,7 @@ object Hello {
     data
   }
 
-  def render(w: Int, h: Int, data: Array[Byte]): Unit = {
+  def draw(w: Int, h: Int, data: Array[Byte]): Unit = {
     val convertedArray = convert(w, h, data)
     val colorModel = ColorModel.getRGBdefault
     val raster = colorModel.createCompatibleWritableRaster(w, h)
