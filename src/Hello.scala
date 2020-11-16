@@ -9,10 +9,10 @@ object Hello {
 
   def main(args: Array[String]) = {
     val s1 = new Sphere(new Vector3D(50, 50, -20), 20)
-    val s2 = new Sphere(new Vector3D(80, 100, 0), 30)
+    val s2 = new Sphere(new Vector3D(0, 0, 0), 30)
 
     val shapes: Vector[Shape] = Vector(s1, s2)
-    val camera: Camera = new Camera(new Vector3D(50, 0, 0), new Vector3D(0, 0, -1))
+    val camera: Camera = new Camera(new Vector3D(0, 0, 0), new Vector3D(0, 0, -1))
 
     val data = FirstTry.render(W, H, shapes, camera)
 
@@ -31,7 +31,7 @@ object Hello {
   }
 
   def convert(w: Int, h: Int, data: Array[Byte]): Array[Int] = {
-    val newW = 125
+    val newW = w / 4
     val array = new Array[Int](w * h)
 
     for(i <- 0 until h) {
