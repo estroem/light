@@ -4,38 +4,19 @@ import math.Vector3D
 import shapes.{Shape, Sphere}
 
 object Hello {
-  val w = 800
-  val h = 500
+  final val W = 800
+  final val H = 500
 
   def main(args: Array[String]) = {
-    //val data = runtest(w, h)
-
     val s1 = new Sphere(new Vector3D(50, 50, -20), 20)
     val s2 = new Sphere(new Vector3D(80, 100, 0), 30)
+
     val shapes: Vector[Shape] = Vector(s1, s2)
+    val camera: Camera = new Camera(new Vector3D(50, 0, 0), new Vector3D(0, 0, -1))
 
-    val data = FirstTry.render(w, h, shapes)
+    val data = FirstTry.render(W, H, shapes, camera)
 
-    draw(w, h, data)
-  }
-
-  def runtest(w: Int, h: Int): Array[Byte] = {
-    val data = new Array[Byte](w * h)
-
-    val x = 490
-    val y = 490
-    data(x * w + y) = 127
-    data(x * w + y + 1) = 127
-    data(x * w + y + 2) = 127
-    data(x * w + y + 3) = 127
-    data(x * w + y + 4) = 127
-    data((x+1) * w + y) = 127
-    data((x+1) * w + y + 1) = 127
-    data((x+1) * w + y + 2) = 127
-    data((x+1) * w + y + 3) = 127
-    data((x+1) * w + y + 4) = 127
-
-    data
+    draw(W, H, data)
   }
 
   def draw(w: Int, h: Int, data: Array[Byte]): Unit = {

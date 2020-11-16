@@ -13,3 +13,7 @@ class Vector3D(var x: Double, var y: Double, var z: Double) {
   def dot(v: Vector3D): Double = x * v.x + y * v.y + z * v.z
   override def toString = s"($x, $y, $z)"
 }
+
+object Vector3D {
+  final val ORIGIN = new Vector3D(0, 0, 0)
+}
