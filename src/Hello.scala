@@ -1,5 +1,6 @@
 import java.awt.image.{BufferedImage, ColorModel}
 
+import world.{Camera, World}
 import math.Vector3D
 import shapes.{Shape, Sphere}
 
@@ -14,10 +15,17 @@ object Hello {
     val shapes: Vector[Shape] = Vector(s1, s2)
     val camera: Camera = new Camera(new Vector3D(0, 0, 0), new Vector3D(0, 0, -1))
 
-    val data = FirstTry.render(W, H, shapes, camera)
+    val world = new World(W, H, shapes, camera)
+
+    val data = FirstTry.render3().run(world)
+
+//    val data = FirstTry.render(W, H, shapes, camera)
 
     draw(W, H, data)
   }
+
+  def getFour(): State[World, Int] = State.ret(4)
+  def getHeight(): State[World, Int] = State.get(a => a.h)
 
   def draw(w: Int, h: Int, data: Array[Byte]): Unit = {
     val convertedArray = convert(w, h, data)

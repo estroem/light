@@ -1,0 +1,4 @@
+package monad
+
+object MonadUtil {
+}
