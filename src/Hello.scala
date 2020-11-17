@@ -2,17 +2,20 @@ import java.awt.image.{BufferedImage, ColorModel}
 
 import world.{Camera, World}
 import math.Vector3D
-import shapes.{Shape, Sphere}
+import math.Vector3D.{ORIGIN, UNIT_Y, UNIT_Z}
+import shapes.{Rectangle, Shape, Sphere}
 
 object Hello {
   final val W = 800
   final val H = 500
 
   def main(args: Array[String]) = {
-    val s1 = new Sphere(new Vector3D(50, 50, -20), 20, 1)
-    val s2 = new Sphere(new Vector3D(0, 0, 0), 30, 0.5)
+    val s1 = new Sphere(new Vector3D(20, 20, -20), 20, 1)
+    val s2 = new Sphere(new Vector3D(100, 100, 0), 30, 0.5)
 
-    val shapes: Vector[Shape] = Vector(s1, s2)
+    val r1 = new Rectangle(new Vector3D(0, 0, -100), UNIT_Z, UNIT_Y, 30, 50, 0.5)
+
+    val shapes: Vector[Shape] = Vector(s1, s2, r1)
     val camera: Camera = new Camera(new Vector3D(0, 0, 0), new Vector3D(0, 0, -1))
 
     val world = new World(W, H, shapes, camera)
