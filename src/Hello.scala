@@ -17,9 +17,7 @@ object Hello {
 
     val world = new World(W, H, shapes, camera)
 
-    val data = FirstTry.render3().run(world)
-
-//    val data = FirstTry.render(W, H, shapes, camera)
+    val data = FirstTry.render().run(world)
 
     draw(W, H, data)
   }
