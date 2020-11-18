@@ -2,7 +2,7 @@ import java.awt.image.{BufferedImage, ColorModel}
 
 import world.{Camera, World}
 import math.Vector3D
-import math.Vector3D.{ORIGIN, UNIT_Y, UNIT_Z}
+import math.Vector3D.{ORIGIN, UNIT_X, UNIT_Y, UNIT_Z}
 import shapes.{Rectangle, Shape, Sphere}
 
 object Hello {
@@ -10,13 +10,23 @@ object Hello {
   final val H = 500
 
   def main(args: Array[String]) = {
-    val s1 = new Sphere(new Vector3D(20, 20, -20), 20, 1)
-    val s2 = new Sphere(new Vector3D(100, 100, 0), 30, 0.5)
+    val s1 = new Sphere(new Vector3D(0, 0, 0), 50, 1)
+    val s2 = new Sphere(new Vector3D(0, 0, 100), 30, 0.5)
 
-    val r1 = new Rectangle(new Vector3D(0, 0, -100), UNIT_Z, UNIT_Y, 30, 50, 0.5)
+    val floor  = new Rectangle(new Vector3D(0, 50, 0), UNIT_Y, UNIT_X, 100, 50, 0.4)
+    val leftW  = new Rectangle(new Vector3D(-100, 0, 0), UNIT_X, UNIT_Y, 100, 100, 0.5)
+    val rightW = new Rectangle(new Vector3D(100, 0, 0), UNIT_X, UNIT_Y, 100, 100, 0.5)
+    val backW  = new Rectangle(new Vector3D(0, 0, -50), UNIT_Z, UNIT_Y, 50, 100, 0.6)
 
-    val shapes: Vector[Shape] = Vector(s1, s2, r1)
-    val camera: Camera = new Camera(new Vector3D(0, 0, 0), new Vector3D(0, 0, -1))
+    val shapes: Vector[Shape] = Vector(s1, floor, backW)
+    val camera: Camera = new Camera(new Vector3D(-30, 30, 50), -UNIT_Z - UNIT_Y, UNIT_Y - UNIT_Z)
+        .pan(-Math.PI / 4)
+//    val camera: Camera = new Camera(new Vector3D(-30, 30, 50), new Vector3D(0, -0.70711, -0.70711), new Vector3D(0, 0.70711, -0.70711))
+//    val camera: Camera = new Camera(new Vector3D(-30, 30, 50), -UNIT_Z ,UNIT_Y)
+//        .pan((7 / 4) * Math.PI)
+//        .tilt(7 * Math.PI / 4)
+
+    assert(Math.abs(camera.direction dot camera.up) < 0.00001, "Camera vectors not orthogonal")
 
     val world = new World(W, H, shapes, camera)
 

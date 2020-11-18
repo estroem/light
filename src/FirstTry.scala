@@ -1,9 +1,11 @@
-import world.{Camera, World}
 import math.{Ray, Vector3D}
 import shapes.Shape
+import world.World
 
 object FirstTry {
-  def render(): State[World, Array[Byte]] = render(0)
+  final val START_AT_ROW = 0
+
+  def render(): State[World, Array[Byte]] = render(START_AT_ROW).map(a => new Array[Byte](START_AT_ROW * Hello.W) ++ a)
 
   def render(startRow: Int): State[World, Array[Byte]] = for {
     height <- Scene.getHeight
@@ -40,8 +42,13 @@ object FirstTry {
   def camPos: State[World, Vector3D] = Scene.getCamera.map(cam => cam.pos).flatMap(moveCamToCenter)
 
   def moveCamToCenter(pos: Vector3D): State[World, Vector3D] =
-    State.binApp((a: Int, b: Int) => new Vector3D(a / 2, b / 2, 0), Scene.getWidth, Scene.getHeight).map(p => pos - p)
+    (State.binApp((a: Int, b: Int) => new Vector3D(a / 2, b / 2, 0), Scene.getWidth, Scene.getHeight) >>= rotateToCamAngle)
+      .map(p => pos - p)
 
   def moveCamToPos(x: Int, y: Int)(pos: Vector3D): State[World, Vector3D] =
-    State.ret(new Vector3D(x, y, 0)).map(p => p + pos)
+    (State.ret(new Vector3D(x, y, 0)) >>= rotateToCamAngle).map(p => p + pos)
+
+  def rotateToCamAngle(v: Vector3D): State[World, Vector3D] =
+    Scene.getCamera.map(cam =>
+      new Vector3D((cam.direction cross cam.up).normalize dot v, cam.up.normalize dot v, cam.direction.normalize dot v))
 }
